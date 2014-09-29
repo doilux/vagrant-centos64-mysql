@@ -64,3 +64,6 @@ set password = PASSWORD('password');
 # 
 # これで後はmysql -u root -ppasswordでログインできるようになる
 ```
+
+# 参考
+<http://nigohiroki.hatenablog.com/entry/2013/11/03/025405>
