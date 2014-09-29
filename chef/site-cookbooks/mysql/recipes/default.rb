@@ -3,6 +3,23 @@ service "iptables" do
     action [:stop, :disable]
 end
 
+# UnInstall mysql-libs
+package "mysql-libs" do
+    action :remove
+end
+
+# Install dependent package
+dependent_packages = %w[
+    rsync wget gcc glibc
+]
+
+dependent_packages.each do |pkg|
+    package pkg do
+        action :install
+    end
+end
+
+
 remote_file "/tmp/#{node['mysql']['file_name']}" do
   source "#{node['mysql']['remote_uri']}"
 end
