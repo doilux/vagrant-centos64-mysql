@@ -65,5 +65,15 @@ set password = PASSWORD('password');
 # これで後はmysql -u root -ppasswordでログインできるようになる
 ```
 
+# おまけ
+## Vagrantの実行マシンからアクセスする
+```
+grant all on test.* to sample_user@'%' identified by 'password' with grant option;
+flush privileges;
+# …
+# 実行マシンから 
+mysql -u sample_user -ppassword test -h 192.168.33.20
+```
+
 # 参考
 <http://nigohiroki.hatenablog.com/entry/2013/11/03/025405>
