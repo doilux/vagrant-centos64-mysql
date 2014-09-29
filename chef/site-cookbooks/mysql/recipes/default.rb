@@ -1,3 +1,8 @@
+# service iptables stop
+service "iptables" do
+    action [:stop, :disable]
+end
+
 remote_file "/tmp/#{node['mysql']['file_name']}" do
   source "#{node['mysql']['remote_uri']}"
 end

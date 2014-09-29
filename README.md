@@ -1,14 +1,66 @@
-手順
+# 事前作業
+以下のツールをインストールする
+
+* chef
+* knife-solo
+* vagrant
+* vagrant-omnibus
 
 ```
-vag box add centos64 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20131103.box
-vag init centos64
-```
+# Chefのインストール
+sudo gem install chef
 
-* 26行目を変更
+# knife-soloのインストール
+sudo gem install knife-solo
+
+# vagrantのインストール
+# 忘れた。ググってくれ
+
+# vagrant-omnibusのインストール
+vagrant plugin install vagrant-omnibus
 ```
-  config.vm.network "private_network", ip: "192.168.33.20"
+# 導入
+
+* boxのダウンロード（くっそ時間かかる） 
 ```
+vagrant box add centos64 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20131103.box
+vagrant init centos64
+```
+* 起動
+```
+vagrant up
+```
+* SSHの設定（仮想マシンに名前を付ける）
 ```
 vag ssh-config --host harmony >> ~/.ssh/config
+```
+* ディレクトリ移動
+```
+cd ./chef
+```
+* 料理する（くっそ時間かかる）
+```
+knife solo cook harmony
+```
+* ログインする
+```
+ssh harmony
+```
+* sockファイルの作成
+```
+sudo su -
+touch /var/lib/mysql/mysql.sock
+chown mysql:mysql /var/lib/mysql
+service mysql restart
+```
+* MySQLのルートユーザーのパスワードを確認
+```
+cat /root/.mysql_secret
+```
+* MySQLにログイン
+```
+mysql -u root -p
+set password = PASSWORD('password');
+# 
+# これで後はmysql -u root -ppasswordでログインできるようになる
 ```
